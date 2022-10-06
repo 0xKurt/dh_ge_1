@@ -121,6 +121,27 @@ contract DonationHandler is DonationHandlerRoles {
         }
     }
 
+    function balanceOf(address _token, address _user)
+        external
+        view
+        returns (uint256)
+    {
+        return balances[_user][_token];
+    }
+
+    function balancesOf(address[] calldata _token, address _user) external view {
+        uint256 length = _token.length;
+        uint256[] memory result = new uint256[](length);
+
+        for (uint256 i = 0; i < length; ) {
+            result[i] = balances[_user][_token[i]];
+            unchecked {
+                i++;
+            }
+        }
+        return result;
+    }
+
     error FeeTooHigh();
 
     event FeeRegistered(address indexed token, uint256 amount);
