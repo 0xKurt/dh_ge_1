@@ -38,6 +38,8 @@ contract DonationHandler is DonationHandlerRoles {
 
         if (_fee == 0) {
             _registerDonation(_token, _recipient, _amount);
+        } else if (_fee == HUNDRED) {
+            _registerFee(_token, _amount);
         } else {
             uint256 feeAmount = (_amount * _fee) / HUNDRED;
             uint256 donationAmount = _amount - feeAmount;
